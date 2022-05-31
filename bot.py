@@ -95,7 +95,7 @@ def send_txt(message):
         stream = BytesIO(downloaded_file)
 
         bincode = Image.open(stream).convert("1")
-
+        bincode = bc.correctbincode(bincode)
         txt = bc.bincode2txt(bincode)
         bot.send_message(
         chat_id, 
