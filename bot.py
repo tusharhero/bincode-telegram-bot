@@ -104,7 +104,13 @@ def send_txt(message):
         txt
         )
     except:
-        send_except("Image not bincode or not of correct size", chat_id)
+        try:
+            bot.send_message(
+                chat_id, 
+                ("We couldn't convert it to text but here is the raw data \n" + bc.rdbincodeimg(bincode) )
+                )
+        except:
+            send_except("Image not bincode or not of correct size", chat_id)
 
 
 
