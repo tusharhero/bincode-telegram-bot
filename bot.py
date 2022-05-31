@@ -1,6 +1,7 @@
 import telebot
 from io import BytesIO
 from PIL import Image
+import os
 
 # imports latest version of bincode
 import requests
@@ -27,9 +28,9 @@ def send_except(
     
 
 # getting the API key
-f = open("API_KEY")
-API_KEY = f.read()
-
+#f = open("API_KEY")
+#API_KEY = f.read()
+API_KEY = os.environ['API_KEY']
 # declaring the bot with API key
 bot = telebot.TeleBot(API_KEY)
 
