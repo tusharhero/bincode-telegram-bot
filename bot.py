@@ -48,6 +48,8 @@ def send_welcome(message):
     Hello there!
     To make a bincode out of your text:
     `/txt2bincode <your text here>`
+
+    To read a bincode just send it!
     """
 
     bot.send_message(
