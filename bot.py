@@ -9,6 +9,23 @@ bincode = requests.get(url)
 open('bincode.py', 'wb').write(bincode.content)
 import bincode as bc
 
+
+
+def send_except(
+    reason,
+    chat_id,
+    ):
+    print(reason)
+    reason_message ="""
+        Oops, an error occured!
+        Possible reason: \n
+        """ + reason
+    bot.send_message(
+        chat_id, 
+        reason_message
+        )
+    
+
 # getting the API key
 f = open("API_KEY")
 API_KEY = f.read()
@@ -53,14 +70,8 @@ def send_bincode(message):
         # send it.
         bot.send_photo(chat_id, photo= bincode)
     except:
-        bot.send_message(
-        chat_id, 
-        """
-        Oops, an error occured!
-        Possible reason:
-        text size too big.
-        """
-        )
+        send_except("Text is too big", chat_id)
+
 
 @bot.message_handler(
     content_types=[
@@ -87,20 +98,8 @@ def send_txt(message):
         txt
         )
     except:
-        print(
-        """
-        Oops, an error occured!
-        Possible reason:
-        Image not bincode.
-        """
-        )
-        bot.send_message(
-        chat_id, 
-        """
-        Oops, an error occured!
-        Possible reason:
-        Image not bincode.
-        """
-        )
+        send_except("Image not bincode or not of correct size", chat_id)
+
+
 
 bot.infinity_polling()
