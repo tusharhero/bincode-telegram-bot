@@ -52,6 +52,8 @@ def send_welcome(message):
     `/txt2bincode <your text here>`
 
     To read a bincode just send it!
+
+    If you want to use the camera try your best to crop it!
     """
 
     bot.send_message(
