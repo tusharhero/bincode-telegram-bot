@@ -30,7 +30,7 @@ def send_except(
 # getting the API key
 #f = open("API_KEY")
 #API_KEY = f.read()
-API_KEY = os.environ['API_KEY']
+API_KEY = os.environ['KEY']
 # declaring the bot with API key
 bot = telebot.TeleBot(API_KEY)
 
