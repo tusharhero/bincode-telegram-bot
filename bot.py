@@ -66,13 +66,15 @@ def send_txt(message):
     file_info = bot.get_file(message.photo[-1].file_id)
 
     downloaded_file = bot.download_file(file_info.file_path)
+    
+    stream = BytesIO(downloaded_file)
 
-    bincode = bc.opbincode(downloaded_file)
+    bincode = Image.open(stream).convert("1")
+    
     txt = bc.bincode2txt(bincode)
     bot.send_message(
     chat_id, 
     txt
     )
-
 
 bot.polling()
