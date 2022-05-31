@@ -132,3 +132,4 @@ dmypy.json
 
 API_KEY
 test.py
+bincode.py
