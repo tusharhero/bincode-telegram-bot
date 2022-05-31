@@ -1,0 +1,4 @@
+This bot makes a bincode of your text. And It also converts them back to text.
+
+What is bincode?
+Bincode is like QRcode. It is open-source under the MIT license and you can find the source-code here (https://github.com/tusharhero/bincode).
