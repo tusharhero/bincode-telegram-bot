@@ -46,12 +46,21 @@ def send_welcome(message):
 
 def send_bincode(message):
     chat_id = message.chat.id
+    try:
+        txt = message.text[13:] # slicing to remove the command part from the text
 
-    txt = message.text[13:] # slicing to remove the command part from the text
-
-    bincode = bc.txt2bincode(txt)
-    # send it.
-    bot.send_photo(chat_id, photo= bincode)
+        bincode = bc.txt2bincode(txt)
+        # send it.
+        bot.send_photo(chat_id, photo= bincode)
+    except:
+        bot.send_message(
+        chat_id, 
+        """
+        Oops, an error occured!
+        Possible reason:
+        text size too big.
+        """
+        )
 
 @bot.message_handler(
     content_types=[
@@ -61,20 +70,37 @@ def send_bincode(message):
 )
 
 def send_txt(message):
-    chat_id = message.chat.id
+    try:
+        chat_id = message.chat.id
 
-    file_info = bot.get_file(message.photo[-1].file_id)
+        file_info = bot.get_file(message.photo[-1].file_id)
 
-    downloaded_file = bot.download_file(file_info.file_path)
+        downloaded_file = bot.download_file(file_info.file_path)
     
-    stream = BytesIO(downloaded_file)
+        stream = BytesIO(downloaded_file)
 
-    bincode = Image.open(stream).convert("1")
-    
-    txt = bc.bincode2txt(bincode)
-    bot.send_message(
-    chat_id, 
-    txt
-    )
+        bincode = Image.open(stream).convert("1")
 
-bot.polling()
+        txt = bc.bincode2txt(bincode)
+        bot.send_message(
+        chat_id, 
+        txt
+        )
+    except:
+        print(
+        """
+        Oops, an error occured!
+        Possible reason:
+        Image not bincode.
+        """
+        )
+        bot.send_message(
+        chat_id, 
+        """
+        Oops, an error occured!
+        Possible reason:
+        Image not bincode.
+        """
+        )
+
+bot.infinity_polling()
