@@ -1,2 +1,2 @@
-web: python3 bot.py & python -m http.server 8080
+web: python3 bot.py & python -m http.server $PORT .
 worker: python3 bot.py
