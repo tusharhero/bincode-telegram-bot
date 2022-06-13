@@ -85,18 +85,28 @@ def send_bincode(message):
 )
 
 def send_txt(message):
-    chat_id = message.chat.id
-    file_info = bot.get_file(message.photo[-1].file_id)
-    downloaded_file = bot.download_file(file_info.file_path)
-    stream = BytesIO(downloaded_file)
+    try:
+        chat_id = message.chat.id
 
-    bincode = Image.open(stream).convert("1")
-    bincode = bc.correctbincode(bincode)
-    txt = bc.bincode2txt(bincode)
-    bot.send_message(
-    chat_id, 
-    txt
-    )
+        file_info = bot.get_file(message.photo[-1].file_id)
+
+        downloaded_file = bot.download_file(file_info.file_path)
+    
+        stream = BytesIO(downloaded_file)
+
+        bincode = Image.open(stream).convert("1")
+        bincode = bc.correctbincode(bincode)
+        txt = bc.bincode2txt(bincode)
+        bot.send_message(
+        chat_id, 
+        txt
+        )
+    except:
+        txt = "We couldn't convert it to text but here is the raw data \n" + str(bc.rdbincodeimg(bincode))
+        bot.send_message(
+            chat_id,
+            txt
+            )
 
 
 
